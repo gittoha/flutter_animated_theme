@@ -171,6 +171,7 @@ class AnimatedThemeApp extends StatefulWidget {
     this.themeMode = ThemeMode.system,
     this.animationType = AnimationType.FADE_ANIMATED_THEME,
     this.animationDuration = const Duration(milliseconds: 600),
+    this.delayAnimation = const Duration(milliseconds: 0),
     this.locale,
     this.localizationsDelegates,
     this.localeListResolutionCallback,
@@ -216,6 +217,7 @@ class AnimatedThemeApp extends StatefulWidget {
     this.theme,
     this.animationType = AnimationType.FADE_ANIMATED_THEME,
     this.animationDuration = const Duration(milliseconds: 600),
+    this.delayAnimation = const Duration(milliseconds: 0),
     this.darkTheme,
     this.highContrastTheme,
     this.highContrastDarkTheme,
@@ -325,6 +327,7 @@ class AnimatedThemeApp extends StatefulWidget {
   final AnimationType animationType;
 
   final Duration animationDuration;
+  final Duration delayAnimation;
 
   /// Default visual properties, like colors fonts and shapes, for this app's
   /// material widgets.
@@ -819,10 +822,8 @@ class _MaterialAppState extends State<AnimatedThemeApp> {
               (mode == ThemeMode.system &&
                   platformBrightness == ui.Brightness.dark)) {
             theme = widget.theme;
-          } else
-            theme ??= widget.darkTheme ?? ThemeData.fallback();
-        } else
-          theme ??= widget.darkTheme ?? ThemeData.fallback();
+          } 
+        } 
 
         // Use a light theme, dark theme, or fallback theme.
         if (widget.darkTheme != null) {
@@ -913,6 +914,7 @@ class _MaterialAppState extends State<AnimatedThemeApp> {
             isMaterialAppTheme: true,
             curve: Curves.ease,
             duration: widget.animationDuration,
+            delayAnimation: widget.delayAnimation,
             child: widget.builder != null
                 ? Builder(
               builder: (BuildContext context) {
